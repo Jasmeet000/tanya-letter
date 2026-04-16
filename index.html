@@ -8,6 +8,7 @@
 body {
     margin: 0;
     font-family: 'Georgia', cursive;
+    overflow-x: hidden;
     background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffc3a0, #ffdde1);
     background-size: 400% 400%;
     animation: gradient 10s ease infinite;
@@ -38,6 +39,17 @@ body {
     text-align: center;
 }
 
+/* background layers */
+#petals-bg, #balloons-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#petals-bg { z-index: 0; }
+#balloons-bg { z-index: 1; }
+
 /* container */
 .container {
     max-width: 900px;
@@ -47,6 +59,7 @@ body {
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     position: relative;
+    z-index: 5;
     opacity: 0;
     transform: translateY(30px);
     transition: 1s;
@@ -88,6 +101,35 @@ h1 {
 .img2 { top: 250px; right: -90px; transform: rotate(-5deg); }
 .img3 { bottom: 250px; right: -80px; transform: rotate(6deg); }
 .img4 { bottom: 20px; right: -100px; transform: rotate(-6deg); }
+
+/* petals */
+.petal {
+    position: absolute;
+    top: -10px;
+    font-size: 20px;
+    opacity: 0.7;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(50vh) translateX(20px) rotate(180deg); }
+    100% { transform: translateY(110vh) translateX(-20px) rotate(360deg); }
+}
+
+/* balloons */
+.balloon {
+    position: absolute;
+    bottom: -50px;
+    font-size: 30px;
+    opacity: 0.8;
+    animation: floatBalloon linear forwards;
+}
+
+@keyframes floatBalloon {
+    from { transform: translateY(0); }
+    to { transform: translateY(-120vh); }
+}
 </style>
 </head>
 
@@ -99,6 +141,10 @@ h1 {
         Tap to open your letter
     </div>
 </div>
+
+<!-- BACKGROUND ANIMATIONS -->
+<div id="petals-bg"></div>
+<div id="balloons-bg"></div>
 
 <!-- LETTER -->
 <div class="container" id="letter">
@@ -193,6 +239,37 @@ I'll still find a way to love you.
 </div>
 
 <script>
+// 🌸 petals (background only)
+setInterval(() => {
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    petal.innerHTML = "✿"; // non-emoji flower
+
+    petal.style.left = Math.random() * 100 + "vw";
+    petal.style.fontSize = (Math.random()*10 + 15) + "px";
+    petal.style.animationDuration = (Math.random()*5 + 5) + "s";
+
+    document.getElementById("petals-bg").appendChild(petal);
+
+    setTimeout(() => petal.remove(), 10000);
+}, 400);
+
+// 🎈 balloons (background only)
+setInterval(() => {
+    const balloon = document.createElement("div");
+    balloon.className = "balloon";
+    balloon.innerHTML = "○"; // simple balloon shape (non-emoji)
+
+    balloon.style.left = Math.random() * 100 + "vw";
+    balloon.style.fontSize = (Math.random()*20 + 20) + "px";
+    balloon.style.animationDuration = (Math.random()*5 + 6) + "s";
+
+    document.getElementById("balloons-bg").appendChild(balloon);
+
+    setTimeout(() => balloon.remove(), 10000);
+}, 1200);
+
+// open letter
 function openLetter() {
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('letter').classList.add('show');
@@ -201,3 +278,6 @@ function openLetter() {
 
 </body>
 </html>
+<audio id="bg-music" loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
