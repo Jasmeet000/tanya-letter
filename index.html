@@ -39,6 +39,15 @@ body {
     text-align: center;
 }
 
+/* background hearts layer */
+#hearts-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
 /* container */
 .container {
     max-width: 900px;
@@ -93,12 +102,11 @@ h1 {
 
 /* subtle background hearts */
 .heart-bg {
-    position: fixed;
+    position: absolute;
     bottom: -20px;
     font-size: 40px;
-    opacity: 0.15; /* transparent */
+    opacity: 0.12;
     animation: floatBg 10s linear;
-    z-index: 0;
 }
 
 @keyframes floatBg {
@@ -121,13 +129,16 @@ h1 {
     </div>
 </div>
 
+<!-- BACKGROUND HEARTS -->
+<div id="hearts-bg"></div>
+
 <!-- LETTER -->
 <div class="container" id="letter">
 
 <h1>Oh My Tanya.</h1>
 
 <div class="text">
-Oh meri cutie Tanya, the enchantress of my soul, the trinket to my wisp.
+Meri pyaru Tanya, the enchantress of my soul, the trinket to my wisp.
 For all I've done to grasp you, it is all so worth the while.
 To see that shimmering smile, that charming glow, that radiating happiness,
 That moon-like beauty reflecting from the ponds of the purest lakes in Himalayas.
@@ -204,7 +215,6 @@ when stars forget how to shine,
 when the sky falls silent forever,
 and even then, somehow, some way…
 I'll still find a way to love you.
-
 </div>
 
 <div class="polaroid img1"><img src="img1.jpg"></div>
@@ -215,7 +225,7 @@ I'll still find a way to love you.
 </div>
 
 <script>
-// subtle floating hearts in background 💖
+// 💖 background hearts (behind everything)
 setInterval(() => {
     const heart = document.createElement("div");
     heart.className = "heart-bg";
@@ -224,7 +234,7 @@ setInterval(() => {
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = (Math.random()*30 + 20) + "px";
 
-    document.body.appendChild(heart);
+    document.getElementById("hearts-bg").appendChild(heart);
 
     setTimeout(() => heart.remove(), 10000);
 }, 1200);
