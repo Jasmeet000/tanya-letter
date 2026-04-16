@@ -25,7 +25,7 @@ body {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+    background: #ffb6c1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,19 +36,7 @@ body {
     font-size: 32px;
     color: #b30059;
     cursor: pointer;
-    text-align: center;
 }
-
-/* background layers */
-#petals-bg, #balloons-bg {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-#petals-bg { z-index: 0; }
-#balloons-bg { z-index: 1; }
 
 /* container */
 .container {
@@ -57,9 +45,6 @@ body {
     background: rgba(255, 192, 203, 0.95);
     padding: 40px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    position: relative;
-    z-index: 5;
     opacity: 0;
     transform: translateY(30px);
     transition: 1s;
@@ -75,76 +60,51 @@ h1 {
     color: #b30059;
 }
 
-/* text */
 .text {
     white-space: pre-line;
     color: #660033;
     line-height: 1.6;
 }
 
-/* polaroids */
-.polaroid {
-    position: absolute;
-    width: 150px;
-    background: white;
-    padding: 8px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.polaroid img {
-    width: 100%;
-    border-radius: 5px;
-}
-
-.img1 { top: 20px; right: -80px; transform: rotate(5deg); }
-.img2 { top: 250px; right: -90px; transform: rotate(-5deg); }
-.img3 { bottom: 250px; right: -80px; transform: rotate(6deg); }
-.img4 { bottom: 20px; right: -100px; transform: rotate(-6deg); }
-
 /* petals */
 .petal {
-    position: absolute;
+    position: fixed;
     top: -10px;
-    font-size: 20px;
-    opacity: 0.7;
     animation: fall linear forwards;
 }
 
 @keyframes fall {
-    0% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(50vh) translateX(20px) rotate(180deg); }
-    100% { transform: translateY(110vh) translateX(-20px) rotate(360deg); }
+    to {
+        transform: translateY(110vh);
+    }
 }
 
 /* balloons */
 .balloon {
-    position: absolute;
+    position: fixed;
     bottom: -50px;
-    font-size: 30px;
-    opacity: 0.8;
-    animation: floatBalloon linear forwards;
+    animation: float linear forwards;
 }
 
-@keyframes floatBalloon {
-    from { transform: translateY(0); }
-    to { transform: translateY(-120vh); }
+@keyframes float {
+    to {
+        transform: translateY(-120vh);
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- FIRST SCREEN -->
-<div class="overlay" id="overlay">
-    <div class="overlay-text" onclick="openLetter()">
-        Tap to open your letter
-    </div>
-</div>
+<!-- AUDIO -->
+<audio id="bg-music" loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
 
-<!-- BACKGROUND ANIMATIONS -->
-<div id="petals-bg"></div>
-<div id="balloons-bg"></div>
+<!-- OVERLAY -->
+<div class="overlay" onclick="openLetter()">
+    <div class="overlay-text">Tap to open your letter</div>
+</div>
 
 <!-- LETTER -->
 <div class="container" id="letter">
@@ -231,53 +191,56 @@ and even then, somehow, some way…
 I'll still find a way to love you.
 </div>
 
-<div class="polaroid img1"><img src="img1.jpg"></div>
-<div class="polaroid img2"><img src="img2.jpg"></div>
-<div class="polaroid img3"><img src="img3.jpg"></div>
-<div class="polaroid img4"><img src="img4.jpg"></div>
-
 </div>
 
 <script>
-// 🌸 petals (background only)
+
+// 🎵 OPEN LETTER + PLAY MUSIC
+function openLetter() {
+    document.querySelector('.overlay').style.display = 'none';
+    document.getElementById('letter').classList.add('show');
+
+    const music = document.getElementById("bg-music");
+
+    music.volume = 0.5;
+
+    music.play().then(() => {
+        console.log("Music is playing ✅");
+    }).catch(err => {
+        console.log("Music error ❌:", err);
+        alert("Music not working. File issue.");
+    });
+}
+
+// 🌸 PETALS
 setInterval(() => {
     const petal = document.createElement("div");
     petal.className = "petal";
-    petal.innerHTML = "✿"; // non-emoji flower
+    petal.innerHTML = "✿";
 
     petal.style.left = Math.random() * 100 + "vw";
     petal.style.fontSize = (Math.random()*10 + 15) + "px";
     petal.style.animationDuration = (Math.random()*5 + 5) + "s";
 
-    document.getElementById("petals-bg").appendChild(petal);
-
-    setTimeout(() => petal.remove(), 10000);
+    document.body.appendChild(petal);
+    setTimeout(() => petal.remove(), 8000);
 }, 400);
 
-// 🎈 balloons (background only)
+// 🎈 BALLOONS
 setInterval(() => {
     const balloon = document.createElement("div");
     balloon.className = "balloon";
-    balloon.innerHTML = "○"; // simple balloon shape (non-emoji)
+    balloon.innerHTML = "○";
 
     balloon.style.left = Math.random() * 100 + "vw";
     balloon.style.fontSize = (Math.random()*20 + 20) + "px";
     balloon.style.animationDuration = (Math.random()*5 + 6) + "s";
 
-    document.getElementById("balloons-bg").appendChild(balloon);
-
-    setTimeout(() => balloon.remove(), 10000);
+    document.body.appendChild(balloon);
+    setTimeout(() => balloon.remove(), 9000);
 }, 1200);
 
-// open letter
-function openLetter() {
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('letter').classList.add('show');
-}
 </script>
 
 </body>
 </html>
-<audio id="bg-music" loop>
-    <source src="song.mp3" type="audio/mpeg">
-</audio>
