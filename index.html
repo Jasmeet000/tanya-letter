@@ -2,9 +2,43 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For Tanya ❤️</title>
+<title>For My Tanya ❤️</title>
 
 <style>
+    .balloon {
+    position: fixed;
+    bottom: -50px;
+    animation: floatBalloon 8s linear;
+}
+
+@keyframes floatBalloon {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+    .side {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    opacity: 0.9;
+}
+
+.left {
+    left: -100px;
+}
+
+.right {
+    right: -100px;
+}
 body {
     margin: 0;
     font-family: 'Georgia', cursive;
@@ -55,6 +89,17 @@ h1 {
     text-align: center;
     color: #b30059;
 }
+    <div class="side left">
+    🌷🌷🌷
+    💖
+    🌸🌸
+</div>
+
+<div class="side right">
+    🎈🎈🎈
+    💕
+    🌷
+</div>
 
 .text {
     white-space: pre-line;
@@ -181,6 +226,17 @@ I'll still find a way to love you my pyaru si.
 </div>
 
 <script>
+    // balloons 🎈
+setInterval(() => {
+    const balloon = document.createElement("div");
+    balloon.className = "balloon";
+    balloon.innerHTML = "🎈";
+    balloon.style.left = Math.random() * 100 + "vw";
+    balloon.style.fontSize = (Math.random()*30 + 30) + "px";
+    document.body.appendChild(balloon);
+
+    setTimeout(() => balloon.remove(), 8000);
+}, 1200);
 function openLetter() {
     document.querySelector('.overlay').style.display = 'none';
     document.getElementById('letter').classList.add('show');
@@ -197,6 +253,8 @@ setInterval(() => {
 
     setTimeout(() => heart.remove(), 6000);
 }, 500);
+
+    
 </script>
 
 </body>
