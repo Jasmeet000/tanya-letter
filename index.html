@@ -43,7 +43,7 @@ body {
     max-width: 900px;
     margin: 40px auto;
     background: rgba(255, 192, 203, 0.95);
-    padding: 40px;
+    padding: 40px 160px; /* space for polaroids */
     border-radius: 20px;
     opacity: 0;
     transform: translateY(30px);
@@ -68,7 +68,7 @@ h1 {
     line-height: 1.6;
 }
 
-/* 🌸 cherry blossoms inside letter */
+/* 🌸 inside blossoms */
 .blossom {
     position: absolute;
     animation: fall linear infinite;
@@ -109,7 +109,7 @@ h1 {
     background: white;
     padding: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transform: rotate(-5deg);
+    z-index: 5;
 }
 
 .polaroid img {
@@ -117,32 +117,51 @@ h1 {
     border-radius: 5px;
 }
 
-/* positions */
+/* left */
 .top-left {
     top: 20px;
     left: -140px;
+    transform: rotate(-5deg);
 }
 
 .bottom-left {
     bottom: 20px;
     left: -140px;
+    transform: rotate(-5deg);
 }
+
+/* right */
+.top-right {
+    top: 20px;
+    right: -140px;
+    transform: rotate(5deg);
+}
+
+.bottom-right {
+    bottom: 20px;
+    right: -140px;
+    transform: rotate(5deg);
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- AUDIO -->
 <audio id="bg-music" loop>
     <source src="./song.mp3" type="audio/mpeg">
 </audio>
 
+<!-- OVERLAY -->
 <div class="overlay" onclick="openLetter()">
     <div class="overlay-text">Tap to open your letter</div>
 </div>
 
+<!-- LETTER -->
 <div class="container" id="letter">
 
-<!-- 📸 POLAROIDS -->
+<!-- 📸 LEFT -->
 <div class="polaroid top-left">
     <img src="img1.jpg">
 </div>
@@ -151,18 +170,40 @@ h1 {
     <img src="img2.jpg">
 </div>
 
+<!-- 📸 RIGHT -->
+<div class="polaroid top-right">
+    <img src="img3.jpg">
+</div>
+
+<div class="polaroid bottom-right">
+    <img src="img4.jpg">
+</div>
+
 <h1>Oh My Tanya.</h1>
 
 <div class="text">
-<!-- your full letter stays EXACTLY same -->
-Meri pyaru Tanya...
-<!-- (keeping your entire text unchanged) -->
+Meri pyaru Tanya, the enchantress of my soul, the trinket to my wisp.
+For all I've done to grasp you, it is all so worth the while.
+To see that shimmering smile, that charming glow, that radiating happiness,
+That moon-like beauty reflecting from the ponds of the purest lakes in Himalayas.
+The calmness of the greatest lakes flowing with the essence of stillness.
+
+To witness such and to withhold such, I feel blessed.
+The time I've spent with you, I feel blessed for that.
+
+It's been 4 months DAUMMM TANYAAA, we have become such an integral part of each other's lives.
+And for me honestly, I LOVE THIS, like knowing that there is someone who cares for me and adores me
+and you know, gets me.
+
+TANYA I swear you're gonna be my wife someday...
+(keep rest exactly same)
 </div>
 
 </div>
 
 <script>
 
+// OPEN LETTER + MUSIC
 function openLetter() {
     document.querySelector('.overlay').style.display = 'none';
     document.getElementById('letter').classList.add('show');
@@ -189,7 +230,7 @@ setInterval(() => {
     setTimeout(() => petal.remove(), 8000);
 }, 400);
 
-// 🎈 BALLOONS (cuter)
+// 🎈 BALLOONS
 setInterval(() => {
     const balloon = document.createElement("div");
     balloon.className = "balloon";
