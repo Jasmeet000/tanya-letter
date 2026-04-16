@@ -5,7 +5,23 @@
 <title>For My Tanya ❤️</title>
 
 <style>
-    .overlay {
+body {
+    margin: 0;
+    font-family: 'Georgia', cursive;
+    overflow-x: hidden;
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffc3a0, #ffdde1);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+    0% {background-position: 0%;}
+    50% {background-position: 100%;}
+    100% {background-position: 0%;}
+}
+
+/* overlay */
+.overlay {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -24,68 +40,8 @@
     cursor: pointer;
     text-align: center;
 }
-    .balloon {
-    position: fixed;
-    bottom: -50px;
-    animation: floatBalloon 8s linear;
-}
 
-@keyframes floatBalloon {
-    from {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(-110vh);
-        opacity: 0;
-    }
-}
-    .side {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 50px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    opacity: 0.9;
-}
-
-.left {
-    left: -100px;
-}
-
-.right {
-    right: -100px;
-}
-body {
-    margin: 0;
-    font-family: 'Georgia', cursive;
-    overflow-x: hidden;
-    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffc3a0, #ffdde1);
-    background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
-}
-
-@keyframes gradient {
-    0% {background-position: 0%;}
-    50% {background-position: 100%;}
-    100% {background-position: 0%;}
-}
-
-.overlay {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: #ffb6c1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    cursor: pointer;
-    z-index: 10;
-}
-
+/* container */
 .container {
     max-width: 900px;
     margin: 40px auto;
@@ -108,24 +64,15 @@ h1 {
     text-align: center;
     color: #b30059;
 }
-    <div class="side left">
-    🌷🌷🌷
-    💖
-    🌸🌸
-</div>
 
-<div class="side right">
-    🎈🎈🎈
-    💕
-    🌷
-</div>
-
+/* text */
 .text {
     white-space: pre-line;
     color: #660033;
     line-height: 1.6;
 }
 
+/* polaroids */
 .polaroid {
     position: absolute;
     width: 150px;
@@ -140,38 +87,91 @@ h1 {
     border-radius: 5px;
 }
 
-/* placement */
 .img1 { top: 20px; right: -80px; transform: rotate(5deg); }
 .img2 { top: 250px; right: -90px; transform: rotate(-5deg); }
 .img3 { bottom: 250px; right: -80px; transform: rotate(6deg); }
 .img4 { bottom: 20px; right: -100px; transform: rotate(-6deg); }
 
-/* floating hearts */
-.heart {
-    position: fixed;
-    color: pink;
-    animation: float 6s infinite;
+/* side decorations */
+.side {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    opacity: 0.9;
 }
 
-@keyframes float {
+.left { left: -80px; }
+.right { right: -80px; }
+
+/* hearts */
+.heart {
+    position: fixed;
+    animation: floatHeart 6s linear;
+}
+
+@keyframes floatHeart {
     from { transform: translateY(100vh); opacity: 1; }
     to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* balloons */
+.balloon {
+    position: fixed;
+    bottom: -50px;
+    animation: floatBalloon 8s linear;
+}
+
+@keyframes floatBalloon {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* petals */
+.petal {
+    position: absolute;
+    top: -10px;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(50vh) translateX(20px) rotate(180deg); }
+    100% { transform: translateY(110vh) translateX(-20px) rotate(360deg); }
 }
 </style>
 </head>
 
 <body>
 
+<!-- FIRST SCREEN -->
 <div class="overlay" onclick="openLetter()" id="overlay">
     <div class="overlay-text">Tap to open your letter ❤️</div>
 </div>
 
+<!-- LETTER -->
 <div class="container" id="letter">
 
 <h1>Oh My Tanya.</h1>
 
+<div class="side left">
+    🌷🌷🌷
+    💖
+    🌸🌸
+</div>
+
+<div class="side right">
+    🎈🎈🎈
+    💕
+    🌷
+</div>
+
 <div class="text">
-Oh my Tanya, the enchantress of my soul, the trinket to my wisp.
+Oh thy Tanya, the enchantress of my soul, the trinket to my wisp.
 For all I've done to grasp you, it is all so worth the while.
 To see that shimmering smile, that charming glow, that radiating happiness,
 That moon-like beauty reflecting from the ponds of the purest lakes in Himalayas.
@@ -249,7 +249,6 @@ when the sky falls silent forever,
 and even then, somehow, some way…
 I'll still find a way to love you.
 
-
 </div>
 
 <div class="polaroid img1"><img src="img1.jpg"></div>
@@ -260,7 +259,7 @@ I'll still find a way to love you.
 </div>
 
 <script>
-    // petals on first screen 🌸
+// 🌸 petals on first screen
 let petalInterval = setInterval(() => {
     const petal = document.createElement("div");
     petal.className = "petal";
@@ -274,8 +273,8 @@ let petalInterval = setInterval(() => {
 
     setTimeout(() => petal.remove(), 10000);
 }, 300);
-    
-    // balloons 🎈
+
+// 🎈 balloons
 setInterval(() => {
     const balloon = document.createElement("div");
     balloon.className = "balloon";
@@ -286,7 +285,8 @@ setInterval(() => {
 
     setTimeout(() => balloon.remove(), 8000);
 }, 1200);
-    // floating hearts
+
+// ❤️ hearts
 setInterval(() => {
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -297,27 +297,13 @@ setInterval(() => {
 
     setTimeout(() => heart.remove(), 6000);
 }, 500);
+
+// open letter
 function openLetter() {
     document.querySelector('.overlay').style.display = 'none';
     document.getElementById('letter').classList.add('show');
-
-    clearInterval(petalInterval); // stops petals
+    clearInterval(petalInterval);
 }
-}
-
-// floating hearts
-setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random()*20 + 10) + "px";
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 6000);
-}, 500);
-
-    
 </script>
 
 </body>
