@@ -36,9 +36,10 @@ body {
 .overlay-text {
     font-size: 32px;
     color: #b30059;
-    z-index: 2;
+    z-index: 5;
     cursor: pointer;
     text-align: center;
+    position: relative;
 }
 
 /* container */
@@ -134,7 +135,8 @@ h1 {
 .petal {
     position: absolute;
     top: -10px;
-    pointer-events: none;
+    pointer-events: none; /* FIX CLICK ISSUE */
+    z-index: 1;
     animation: fall linear forwards;
 }
 
@@ -149,8 +151,10 @@ h1 {
 <body>
 
 <!-- FIRST SCREEN -->
-<div class="overlay" onclick="openLetter()" id="overlay">
-    <div class="overlay-text">Tap to open your letter ❤️</div>
+<div class="overlay" id="overlay">
+    <div class="overlay-text" onclick="openLetter()">
+        Tap to open your letter ❤️
+    </div>
 </div>
 
 <!-- LETTER -->
@@ -171,7 +175,7 @@ h1 {
 </div>
 
 <div class="text">
-Oh thy Tanya, the enchantress of my soul, the trinket to my wisp.
+Oh my Tanya, the enchantress of my soul, the trinket to my wisp.
 For all I've done to grasp you, it is all so worth the while.
 To see that shimmering smile, that charming glow, that radiating happiness,
 That moon-like beauty reflecting from the ponds of the purest lakes in Himalayas.
@@ -300,7 +304,7 @@ setInterval(() => {
 
 // open letter
 function openLetter() {
-    document.querySelector('.overlay').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
     document.getElementById('letter').classList.add('show');
     clearInterval(petalInterval);
 }
