@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For My Tanya ❤️</title>
+<title>For My Tanya</title>
 
 <style>
 body {
     margin: 0;
     font-family: 'Georgia', cursive;
-    overflow: hidden;
     background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffc3a0, #ffdde1);
     background-size: 400% 400%;
     animation: gradient 10s ease infinite;
@@ -29,7 +28,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 10;
 }
 
 .overlay-text {
@@ -39,19 +38,7 @@ body {
     text-align: center;
 }
 
-/* BACKGROUND HEARTS LAYER (FORCED BACK) */
-#hearts-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1; /* 🔥 FORCE BEHIND EVERYTHING */
-    pointer-events: none;
-}
-
-/* container (always above) */
+/* container */
 .container {
     max-width: 900px;
     margin: 40px auto;
@@ -60,7 +47,6 @@ body {
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     position: relative;
-    z-index: 5; /* 🔥 FORCE ABOVE */
     opacity: 0;
     transform: translateY(30px);
     transition: 1s;
@@ -76,6 +62,7 @@ h1 {
     color: #b30059;
 }
 
+/* text */
 .text {
     white-space: pre-line;
     color: #660033;
@@ -101,32 +88,15 @@ h1 {
 .img2 { top: 250px; right: -90px; transform: rotate(-5deg); }
 .img3 { bottom: 250px; right: -80px; transform: rotate(6deg); }
 .img4 { bottom: 20px; right: -100px; transform: rotate(-6deg); }
-
-/* hearts */
-.heart-bg {
-    position: absolute;
-    bottom: -20px;
-    font-size: 40px;
-    opacity: 0.1;
-    animation: floatBg 10s linear;
-}
-
-@keyframes floatBg {
-    from { transform: translateY(0); }
-    to { transform: translateY(-120vh); }
-}
 </style>
 </head>
 
 <body>
 
-<!-- BACKGROUND HEARTS -->
-<div id="hearts-bg"></div>
-
 <!-- FIRST SCREEN -->
 <div class="overlay" id="overlay">
     <div class="overlay-text" onclick="openLetter()">
-        Tap to open your letter ❤️
+        Tap to open your letter
     </div>
 </div>
 
@@ -223,21 +193,6 @@ I'll still find a way to love you.
 </div>
 
 <script>
-// 💖 background hearts (ALWAYS BEHIND)
-setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart-bg";
-    heart.innerHTML = "💖";
-
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random()*30 + 20) + "px";
-
-    document.getElementById("hearts-bg").appendChild(heart);
-
-    setTimeout(() => heart.remove(), 10000);
-}, 1200);
-
-// open letter
 function openLetter() {
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('letter').classList.add('show');
